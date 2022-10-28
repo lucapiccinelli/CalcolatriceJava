@@ -1,6 +1,7 @@
 package org.example.calcolatrice;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -16,135 +17,63 @@ public class Main
         JTextField inputField = new JTextField();
         inputField.setBounds(20, 10, 250, 60);
         inputField.setEditable(false);
-
         panel.add(inputField);
 
 
-        JButton button1 = new JButton("1");
-        button1.setBounds(20, 225, 70, 50);
+        createButton(20, 225, "1", panel);
 
-        button1.addActionListener(new ActionListener()
-        {
-              @Override
-              public void actionPerformed(ActionEvent e)
-              {
-                  String inputFieldText = inputField.getText();
-                  inputField.setText(inputFieldText + "1");
-              }
-        });
-        panel.add(button1);
+        createButton(110, 225, "2", panel);
 
+        createButton(200, 225, "3", panel);
 
-        JButton button2 = new JButton("2");
-        button2.setBounds(110, 225, 70, 50);
+        createButton(20, 155,"4", panel);
 
-        button2.addActionListener(new ActionListener()
-        {
-            @Override
-            public void actionPerformed(ActionEvent e)
-            {
-                String inputFieldText = inputField.getText();
-                inputField.setText(inputFieldText + "2");
-            }
-        });
+        createButton(110, 155,"5", panel);
 
-        panel.add(button2);
+        createButton(200, 155, "6", panel);
 
+        createButton(20, 85, "7", panel);
 
-        JButton button3 = new JButton("3");
-        button3.setBounds(200, 225, 70, 50);
+        createButton(110, 85, "8", panel);
 
-        panel.add(button3);
+        createButton(200, 85, "9", panel);
 
+        createButton(110, 295, "0", panel);
 
-        JButton button4 = new JButton("4");
-        button4.setBounds(20, 155, 70, 50);
+        createButton(20, 295, "C", panel);
 
-        panel.add(button4);
+        createButton(200, 295, ",", panel);
 
+        createButton(290, 295, "+", panel);
 
+        createButton(290, 225, "-", panel);
 
-        JButton button5 = new JButton("5");
-        button5.setBounds(110, 155, 70, 50);
+        createButton(290, 155, "X", panel);
 
-        panel.add(button5);
+        createButton(290, 85, "÷", panel);
 
-
-        JButton button6 = new JButton("6");
-        button6.setBounds(200, 155, 70, 50);
-
-        panel.add(button6);
-
-
-        JButton button7 = new JButton("7");
-        button7.setBounds(20, 85, 70, 50);
-
-        panel.add(button7);
-
-
-        JButton button8 = new JButton("8");
-        button8.setBounds(110, 85, 70, 50);
-
-        panel.add(button8);
-
-
-        JButton button9 = new JButton("9");
-        button9.setBounds(200, 85, 70, 50);
-
-        panel.add(button9);
-
-
-        JButton button0 = new JButton("0");
-        button0.setBounds(110, 295, 70, 50);
-
-        panel.add(button0);
-
-
-        JButton button10 = new JButton("C");
-        button10.setBounds(20, 295, 70, 50);
-
-        panel.add(button10);
-
-
-        JButton button11 = new JButton(",");
-        button11.setBounds(200, 295, 70, 50);
-
-        panel.add(button11);
-
-        JButton button12 = new JButton("+");
-        button12.setBounds(290, 295, 70, 50);
-
-        panel.add(button12);
-
-
-        JButton button13 = new JButton("-");
-        button13.setBounds(290, 225, 70, 50);
-
-        panel.add(button13);
-
-
-        JButton button14 = new JButton("x");
-        button14.setBounds(290, 155, 70, 50);
-
-        panel.add(button14);
-
-        JButton button15 = new JButton("÷");
-        button15.setBounds(290, 85, 70, 50);
-
-        panel.add(button15);
-
-        JButton button16 = new JButton("=");
-        button16.setBounds(290, 15, 70, 50);
-
-
-        panel.add(button16);
-
-
-
+        createButton(290, 15, "=", panel);
 
         frame.setSize(400, 400);
         frame.add(panel);
         frame.setVisible(true);
+    }
+
+    private static void createButton(int x, int y, String text, JPanel panel)
+    {
+        JButton button = new JButton(text);
+        button.setBounds(x, y, 70, 50);
+        button.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                JTextField inputField= (JTextField) panel.getComponent(0);
+                String inputFieldText = inputField.getText();
+                inputField.setText(inputFieldText + text);
+            }
+        });
+        panel.add(button);
     }
 
     private static JPanel createPanel(int width, int height)
