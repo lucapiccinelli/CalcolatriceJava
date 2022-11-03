@@ -1,7 +1,6 @@
 package org.example.calcolatrice;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -68,13 +67,23 @@ public class Main
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                JTextField inputField= (JTextField) panel.getComponent(0);
+                JTextField inputField = (JTextField) panel.getComponent(0);
                 String inputFieldText = inputField.getText();
                 inputField.setText(inputFieldText + text);
+                cancelField(inputField, text);
             }
         });
         panel.add(button);
     }
+
+    private static void cancelField(JTextField inputField, String text)
+    {
+        if (text.contains("C"))
+        {
+            inputField.setText("");
+        }
+    }
+
 
     private static JPanel createPanel(int width, int height)
     {
