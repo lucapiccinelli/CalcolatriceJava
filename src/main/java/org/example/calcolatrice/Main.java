@@ -3,6 +3,8 @@ package org.example.calcolatrice;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Main
 {
@@ -20,7 +22,6 @@ public class Main
 
 
         buttonList(panel);
-        createClearButton(20, 295, panel);
 
 
         frame.setSize(400, 400);
@@ -45,9 +46,10 @@ public class Main
         createButton(200, 295, ",", panel);
         createButton(290, 295, "+", panel);
         createButton(290, 225, "-", panel);
-        createButton(290, 155, "X", panel);
-        createButton(290, 85, "÷", panel);
-        createButton(290, 15, "=", panel);
+        createButton(290, 155, "*", panel);
+        createButton(290, 85, "/", panel);
+        createEqualButton(290, 15, "=", panel);
+        createClearButton(20, 295, panel);
     }
 
 
@@ -85,6 +87,54 @@ public class Main
         });
         panel.add(button);
     }
+
+
+
+    private static void createEqualButton(int x, int y, String text, JPanel panel)
+    {
+        JButton button = JButton(text, x, y);
+        button.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                JTextField inputField = (JTextField) panel.getComponent(0);
+                String inputFieldText = inputField.getText();
+                Pattern pattern = Pattern.compile("^(\\d+)([+\\-*\\/])(\\d+)$");
+                Matcher matcher = pattern.matcher(inputFieldText);
+                if (matcher.matches())
+                {
+                    int number1 = Integer.parseInt(matcher.group(1));
+                    String operator = matcher.group(2);
+                    int number2 = Integer.parseInt(matcher.group(3));
+                    int result = 0;
+                    switch (operator)
+                    {
+                        case "+":
+                            result = number1 + number2;
+                            break;
+                        case "-":
+                            result = number1 - number2;
+                            break;
+                        case "*":
+                            result = number1 * number2;
+                            break;
+                        case "/":
+                            result = number1 / number2;
+                            break;
+                    }
+                    inputField.setText(String.valueOf(result));
+                }
+                else
+                {
+                    clearField(inputField);
+                }
+            }
+        });
+        panel.add(button);
+    }
+
+
 
     private static JButton JButton(String C, int x, int y)
     {
